@@ -34,6 +34,7 @@ The following input variables are needed to run the model:
 - VY (horizontal velocity y - m yr-1)
 - VZ (vertical velocity z - m yr-1)
 - DHTDT_yearly (surface elevation change rate - m yr-1)
+- DHDT_yearly (ice thickness change rate - m yr-1)
 - margin (marginal pixels of glacier - 0 or 1)
 
 ### Example input parameter values
