@@ -26,15 +26,15 @@ The model requieres certain input variables and parameters.
 
 The following input variables are needed to run the model:
 
-- H (ice thickness)
-- HT (surface elevation)
-- G (surface mass balance)
-- mask (ice mask)
-- VX (horizontal velocity x)
-- VY (horizontal velocity y)
-- VZ (vertical velocity z)
-- DHTDT_yearly (surface elevation change rate)
-- margin (marginal pixels of glacier)
+- H (ice thickness - m)
+- HT (surface elevation - m)
+- G (surface mass balance - m i.e. yr-1)
+- mask (ice mask - 0 or 1)
+- VX (horizontal velocity x - m yr-1)
+- VY (horizontal velocity y - m yr-1)
+- VZ (vertical velocity z - m yr-1)
+- DHTDT_yearly (surface elevation change rate - m yr-1)
+- margin (marginal pixels of glacier - 0 or 1)
 
 ### Example input parameter values
 
