@@ -38,7 +38,7 @@ The following input variables are needed to run the model:
 
 ### Example input parameter values
 
-The following parameter values can be inserted:
+The following parameter values were inserted to obtain the debris-covered reference glacier in Verhaegen & Huybrechts (2025):
 
       INTEGER, PARAMETER   :: NY=178                               ! Number of pixels in y (-)
       INTEGER, PARAMETER   :: NX=300                               ! Number of pixels in x (-)
