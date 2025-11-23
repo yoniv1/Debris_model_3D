@@ -9,7 +9,7 @@ The model code is a 3D englacial and supraglacial debris transport model. It is 
 
 The model code consists of the following elemennts:
 
-a) debris_cover_main.f90: supraglacial debris advection model
+a) debris_cover_main_supraglacial.f90: supraglacial debris advection model
 
 This model code solves for the debris thickness, including advection by surface ice flow, melt-out of englacial debris, gravitational transport, and off-glacier debris removal at the margin.
 The advection submodule uses a second-order upwind transport scheme, a Smolarkiewicz-based anti-diffusion correction and also uses a mass conservation correction.
