@@ -27,9 +27,7 @@
       real                                 :: max_slope, dzdx, dzdy, hsum, slopesum_x, slopesum_y
       real, dimension(4)                   :: slope_dir
       integer, parameter                   :: dp = kind(1.0d0)
-      
-!--   Parameter List out
-      real,dimension(NX,NY) :: G,G_obs
+      real,dimension(NX,NY)                :: G,G_obs
 
 !--   Variables
       integer               :: i,j,it_d,yr_d,iter_mc,iter_smolar,ii, jj,count_h_debris,pert_status, n_up, idir, count_up, k
@@ -148,8 +146,8 @@ do while (yr_d.le.numberofyears)
            else
               mass_in_flux(I,J) = 0.
            endif
-         enddo
-      enddo
+         end do
+      end do
       
    !----------------!
    ! DEBRIS MELTOUT !
@@ -221,14 +219,14 @@ do while (yr_d.le.numberofyears)
       do J=1,NY
          do I=1,NX
             if(dh_debrisdt_yearly(I,J).gt.0)then
-	       mass_supra_out_retreat(I,J) = ((1-phi_debris)*rho_debris*(deltax_d*deltax_d)*dh_debrisdt_yearly(I,J))
+	           mass_supra_out_retreat(I,J) = ((1-phi_debris)*rho_debris*(deltax_d*deltax_d)*dh_debrisdt_yearly(I,J))
                expected_mass_debris(I,J) = expected_mass_debris(I,J) - ((1-phi_debris)*rho_debris*(deltax_d*deltax_d)*dh_debrisdt_yearly(I,J))
             else
                mass_supra_out_retreat(I,J) = 0.
                expected_mass_debris(I,J) = expected_mass_debris(I,J)
             endif
-         enddo
-      enddo
+         end do
+      end do
      
    endif  ! Endif it_d = 1
      
@@ -406,7 +404,7 @@ do while (yr_d.le.numberofyears)
       do J=1,NY
          do I=1,NX      
             if (h_debris(I,J).le.0)then
-	       h_debris(I,J) = 0.
+	           h_debris(I,J) = 0.
             end if
           end do
       end do
@@ -422,21 +420,21 @@ do while (yr_d.le.numberofyears)
       do J=1,NY
          do I=1,NX
             if (h_debris(I, J) /= h_debris(I, J)) then  ! Check for NaN        
-               h_debris(I, J) = 0.0  ! Replace NaN with 0
+                h_debris(I, J) = 0.0  ! Replace NaN with 0
             end if
-         enddo
-      enddo
+         end do
+      end do
 
       do J=1,NY
          do I=1,NX
             if(margin(I,J).eq.1.and.h_debris(I,J) .gt. 0 .and. &
-             h_debris(I-1,J-1) .lt. 1e-5 .and. h_debris(I, J-1) .lt. 1e-5 .and. h_debris(I+1, J-1) .lt. 1e-5 .and. &
-             h_debris(I-1,J) .lt. 1e-5 .and. h_debris(I+1, J) .lt. 1e-5 .and. &
-             h_debris(I-1,J+1) .lt. 1e-5 .and. h_debris(I, J+1) .lt. 1e-5 .and. h_debris(I+1, J+1) .lt. 1e-5) then
-               h_debris(I,J) = 0.
+              h_debris(I-1,J-1) .lt. 1e-5 .and. h_debris(I, J-1) .lt. 1e-5 .and. h_debris(I+1, J-1) .lt. 1e-5 .and. &
+              h_debris(I-1,J) .lt. 1e-5 .and. h_debris(I+1, J) .lt. 1e-5 .and. &
+              h_debris(I-1,J+1) .lt. 1e-5 .and. h_debris(I, J+1) .lt. 1e-5 .and. h_debris(I+1, J+1) .lt. 1e-5) then
+                h_debris(I,J) = 0.
             endif
-         enddo
-      enddo
+         end do
+      end do
 
   !---------------------------------------------------------------------!
   ! STEP 2: ANTI-DIFFUSION CALCULATION (NUMERICAL DIFFUSION CORRECTION) !
@@ -450,6 +448,7 @@ do while (yr_d.le.numberofyears)
 
     do J=1,NY
         do I=1,NX
+		
 	     if((I.gt.1).and.(J.gt.1).and.(I.lt.NX).and.(J.lt.NY).and.H(I,J,3).gt.0.and.h_debris(I,J).gt.0)then
 
                    ! X-DIRECTION  
@@ -516,7 +515,7 @@ do while (yr_d.le.numberofyears)
        enddo
    end do
 
-   ! Do the correction step                            
+   ! Do the Smolarkiewicz correction step                            
 
    do J=2,NY-1
        do I=2,NX-1
@@ -590,8 +589,8 @@ do while (yr_d.le.numberofyears)
             if (h_debris(I, J) /= h_debris(I, J)) then  ! Check for NaN       
                h_debris(I, J) = 0.0  ! Replace NaN with 0       
             end if
-         enddo
-     enddo
+         end do
+     end do
 
      do J=1,NY
          do I=1,NX
@@ -601,8 +600,8 @@ do while (yr_d.le.numberofyears)
              h_debris(I-1,J+1) .lt. 1e-5 .and. h_debris(I, J+1) .lt. 1e-5 .and. h_debris(I+1, J+1) .lt. 1e-5) then
                h_debris(I,J) = 0.
             endif
-         enddo
-     enddo
+         end do
+     end do
 
      do J=2,NY-1
         do I=2,NX-1
@@ -991,8 +990,8 @@ do while (yr_d.le.numberofyears)
 
              endif   ! Endif (margin(i, j) > 0 .and. H(i,j,3) > 0.0) then
 
-     enddo
- enddo
+     end do
+ end do
   
  ! ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc     
  ! cccccccccccccc REMOVE UNREALISTIC VALUES CHECK cccccccccccccc            
@@ -1031,8 +1030,8 @@ do while (yr_d.le.numberofyears)
                h_debris(I, J) = 0.0  ! Replace NaN with 0                      
                flux_grav_out(i, j) = 0.
             end if
-         enddo
-      enddo
+         end do
+      end do
 
       do J=1,NY
          do I=1,NX
@@ -1043,16 +1042,16 @@ do while (yr_d.le.numberofyears)
                h_debris(I,J) = 0.
                flux_grav_out(i, j) = 0.
             endif
-         enddo
-      enddo
+         end do
+      end do
 
       do J=1,NY
          do I=1,NX
             if(flux_grav_out(i, j).lt.1e-5)then
                flux_grav_out(i, j) = 0.
             endif      
-         enddo
-      enddo
+         end do
+      end do
  
   ! ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc    
   ! cccccccccccccccccccccccc SAVE TERMS FOR MASS CONSERVATION ccccccccccccccccccccc                                  
@@ -1086,8 +1085,8 @@ do while (yr_d.le.numberofyears)
           if (expected_mass_debris(I,J) /= expected_mass_debris(I, J)) then  ! Check for NaN            
                expected_mass_debris(I,J) = 0.0  ! Replace NaN with 0      
           end if
-      enddo
-  enddo
+      end do
+  end do
   
   ! cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc       
   ! ccccccccccccccccc UPDATE TIME STEP (1/DT) cccccccccccccccccccccc            
@@ -1124,11 +1123,11 @@ do while (yr_d.le.numberofyears)
    expected_mass_hist_before = expected_mass_hist            ! Save this expected debris mass before correction
    mass_ratio_hist = (expected_mass_hist/actual_mass_hist)   ! Mass ratio before correction
 
-!   write(*,*),'------ before correction --------'
-!   write(*,*),'sum actual supra mass before adv= ',actual_mass_debris_before
-!   write(*,*),'sum actual supra mass before corr= ',sum(actual_mass_debris)                                                                        
-!   write(*,*),'sum expected supra mass before corr= ',sum(expected_mass_debris)                        
-!   write(*,*),'mass ratio hist supra before= ',mass_ratio_hist(1)
+   write(*,*),'------ before correction --------'
+   write(*,*),'sum actual supra mass before adv= ',actual_mass_debris_before
+   write(*,*),'sum actual supra mass before corr= ',sum(actual_mass_debris)                                                                        
+   write(*,*),'sum expected supra mass before corr= ',sum(expected_mass_debris)                        
+   write(*,*),'mass ratio hist supra before= ',mass_ratio_hist(1)
 
    ! Mass conservation iterations
    
@@ -1194,26 +1193,6 @@ do while (yr_d.le.numberofyears)
    write(*,*),'mass out supra =',F_out_new
    write(*,*),'mass retreat supra =',sum(mass_supra_out_retreat)
    write(*,*),'mass in supra = ',sum(sum_mass_meltout) + sum(mass_in_flux)
-
-   ! Area and length of debris evacuation
-
-   length_evac = 0.
-   area_evac = 0.
-   
-   do J = 1, NY
-      do I = 1, NX
-         ! Count only margin cells in ablation area (G < 0) with debris
-         if (margin(I,J) .gt. 0 .and. G(I,J) .le. 0 .and. h_debris(I,J) .gt. 0) then
-            length_evac = length_evac + deltax_d    ! each margin cell ≈ dx of front
-         end if
-      end do
-   end do
-
-   ! Evacuation area: length * L_d*
-   area_evac = (length_evac * lchar_d) / 1e6          ! [km^2]
-
-   write(*,*),'length evac = ', length_evac
-   write(*,*),'area evac = ', area_evac
    
   !-----------------------------------------------------------!        
   ! STEP 4: DETERMINE DEBRIS-RELATED MELT-MODIFICATION FACTOR !      
@@ -1232,18 +1211,6 @@ do while (yr_d.le.numberofyears)
          end if
       end do
    end do
-
-!   do J=1,NY
-!      do I=1,NX
-!         if(h_debris(I,J).le.0.00375)then
-!            fdebris(I,J) = (26.667*h_debris(I,J)) + 1
-!         else if(h_debris(I,J).gt.0.00375.and.h_debris(I,J).le.0.01025)then
-!            fdebris(I,J) = ((-16*h_debris(I,J)) + 1.16)
-!         else if(h_debris(I,J).gt.0.01025)then
-!            fdebris(I,J) = (0.1061*(h_debris(I,J)**(-0.7205))-0.225)*0.375
-!         end if
-!      end do
-!   end do
    
    do J=1,NY
       do I=1,NX
@@ -1264,12 +1231,6 @@ do while (yr_d.le.numberofyears)
          area_debris(I,J)=(1-exp(-20*h_debris(I,J)))
       end do
   end do
-
-!fdebris = 1.0 !!!!!!!!!!
-!sir = flux_grav_out !!!!!!!!!
-!TMA = vel_diff !!!!!!!!!
-TMA = dh_debrisdt_yearly
-sir = mass_supra_out_retreat
 
 ! Update time step for next year
 
