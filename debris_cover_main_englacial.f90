@@ -19,14 +19,11 @@
       double precision,dimension(NX,NY,NZ) :: term1_debris_eng_y_plus,term1_debris_eng_y_min,term1_debris_eng_z_plus, term1_debris_eng_z_min,actual_mass_debris_eng_before
       real,dimension(NZ)                   :: za, za_eng, dzeta, dza_eng
       real,dimension(1)                    :: actual_mass_hist_eng, expected_mass_hist_eng, mass_ratio_hist_eng, expected_mass_before_eng,mass_ratio_hist_eng_new,expected_mass_hist_eng_new
-      
-!--   Parameter List out                                                                                                                                                                 
-      real,dimension(NX,NY) :: G,G_obs
+      real,dimension(NX,NY)                :: G,G_obs
 
 !--   Variables                                                                                                                                                                          
       integer               :: i,j,k,yr_deng, it_deng,it_smolar_eng,c,pert_status,W,iter_smolar,iter_mc
       real                  :: startTime, stopTime,max_ti_hist,debris_input_area, deposition_vol_debris, F_out_new
-      real, allocatable     :: ti_corr2(:,:)
 
 !---------------------------!                              
 ! FLIP MATRICES UPSIDE DOWN !                                                                          
@@ -155,14 +152,12 @@ do while (yr_deng.le.numberofyears_eng)
 
       do J=1,NY
          do I=1,NX
-
-             if (I.eq.6.and.J.ge.83.and.J.le.95)then
+             if (I.eq.6.and.J.ge.82.and.J.le.95)then
                 inputlocation_debris_acc(I,J) = 1
              end if
-             if (I.eq.7.and.J.ge.83.and.J.le.95)then
+             if (I.eq.7.and.J.ge.82.and.J.le.95)then
                 inputlocation_debris_acc(I,J) = 1
              end if
-
          end do
        end do
 
@@ -171,13 +166,11 @@ do while (yr_deng.le.numberofyears_eng)
 
        do J=1,NY
          do I=1,NX
-
              if (inputlocation_debris_acc(I,J).gt.0)then
                 inoutdebris_acc(I,J) = (deposition_vol_debris / debris_input_area)    ! Input rate (in m/y -> m^3/(y*m^2))     
              else
                 inoutdebris_acc(I,J) = 0.
              end if
-
          end do
       end do
 
@@ -209,12 +202,12 @@ do while (yr_deng.le.numberofyears_eng)
   ! cccccc APPLY INPUT BOUNDARY CONDITION cccccccc  
   ! cccccccccccccccccccccccccccccccccccccccccccccc    
 
-  ! Initialization of ti and ti_new
+  ! Initialization of ti and ti_new with surface debris mass concentration (input boundary condition)
 
       do J=1,NY
          do I=1,NX
                 ti(I,J,NZ) = t_s(I,J)
-	        ti_new(I,J,NZ) = t_s(I,J)
+	            ti_new(I,J,NZ) = t_s(I,J)
          end do
       end do
 
@@ -346,8 +339,8 @@ do while (yr_deng.le.numberofyears_eng)
    ! STEP 1: DEBRIS CONCENTRATION CALCULATION !
    !------------------------------------------!
 
-      do J=1,NY 
-         do I=1,NX
+   do J=1,NY 
+     do I=1,NX
 	   do K=1,NZ                                                                                                 
     
 	   ti_new(I,J,K) = ti(I,J,K)
@@ -459,12 +452,12 @@ do while (yr_deng.le.numberofyears_eng)
                      
                if ((sqrt(vx(I,J,1) * vx(I,J,1) + vy(I,J,1) * vy(I,J,1) + vz(I,J,1) * vz(I,J,1)).eq.0).and.(ti(I,J,K).gt.0))then
                     ti(I,J,K) = 0.
-		    ti_new(I,J,K) = 0.
+		            ti_new(I,J,K) = 0.
                end if
 
                if (H(I,J,3).eq.0)then
                     ti(I,J,K) = 0.
-		    ti_new(I,J,K) = 0.
+		            ti_new(I,J,K) = 0.
                end if
 
                if (ti(I,J,K) /= ti(I,J,K))then
@@ -632,7 +625,7 @@ do while (yr_deng.le.numberofyears_eng)
       end do
    end do
 
-  ! Do the correction step
+  ! Do the Smolarkiewicz correction step
 
    do J=2,NY-1
        do I=2,NX-1
@@ -942,8 +935,5 @@ enddo
 
 sum_mass_meltout = mass_melt_out
 ti_hist = ti
-ti_add = vel_diff
-ti_add(:,:,1)=dc_ddt_yearly
-ti_add(:,:,2)=mass_engl_out_retreat
 
       end subroutine debris_cover_main_englacial
