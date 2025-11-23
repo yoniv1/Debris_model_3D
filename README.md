@@ -16,7 +16,7 @@ The advection submodule uses a second-order upwind transport scheme, a Smolarkie
 
 b) debris_cover_main_englacial.f90: englacial debris advection model
 
-This model advects debris mass concentration within the ice column, using a second-order upwind scheme + Smolarkiewicz anti-diffusion correction and also uses a mass conservation correction.
+This model advects debris mass concentration within the ice column, using a second-order upwind scheme + Smolarkiewicz anti-diffusion correction and also uses a mass conservation correction. It provides the melt-out mass that is used as input into the supraglacial debris model.
 
 ## Model input and requirements
 
