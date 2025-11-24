@@ -37,6 +37,10 @@ The following input variables are needed to run the model:
 - DHDT_yearly (ice thickness change rate - m yr-1)
 - margin (marginal pixels of glacier - 0 or 1)
 
+### Debris input locations
+
+Debris input locations are X,Y positions of the pixels within the domain and should be set in debris_cover_main_englacial.f90 (if in the accumulation zone) or debris_cover_main_supraglacial.f90 (if in the ablation zone).
+
 ### Example input parameter values
 
 The following parameter values were inserted to obtain the debris-covered reference glacier in Verhaegen & Huybrechts (2025):
