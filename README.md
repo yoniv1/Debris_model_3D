@@ -82,3 +82,6 @@ Verhaegen, Y., Huybrechts, P., Rybak, O., and Popovnin, V. V.: Modelling the evo
 If you use this model, please cite:
 
 Verhaegen, Y. & Huybrechts, P. (2025). Coupling debris transport to 3D higher-order ice flow dynamics to model the behavior and climate change response of debris-covered glaciers. Journal of Geophysical Research – Earth Surface.
+
+The corresponding Zenodo folder can be found here: http://doi.org/10.5281/zenodo.17693004.
+
