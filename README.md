@@ -2,7 +2,7 @@
 
 ## General information
 
-The model code is a 3D englacial and supraglacial debris transport model. It is written in Fortran90. The model is used in Verhaegen and Huybrechts (2025), where it is applied to a synthetic, idealized glacier. It builds further upon earlier work in Anderson
+The model code is a 3D englacial and supraglacial debris transport model. It is written in Fortran90. The model is used in Verhaegen and Huybrechts (2026), where it is applied to a synthetic, idealized glacier. It builds further upon earlier work in Anderson
 & Anderson (2016) and Verhaegen et al. (2020).
 
 ## Model structure
@@ -79,7 +79,7 @@ Verhaegen, Y., Huybrechts, P., Rybak, O., and Popovnin, V. V.: Modelling the evo
 
 If you use this model, please cite:
 
-Verhaegen, Y. & Huybrechts, P. (2025). Coupling debris transport to 3D higher-order ice flow dynamics to model the behavior and climate change response of debris-covered glaciers. Journal of Geophysical Research – Earth Surface.
+Verhaegen, Y., & Huybrechts, P. (2026). Coupling debris transport to 3D higher‐order ice flow dynamics to model the behavior and climate change response of debris‐covered glaciers. Journal of Geophysical Research: Earth Surface, 131, e2025JF008748. https://doi.org/10.1029/2025JF008748.
 
 The corresponding Zenodo folder can be found here: http://doi.org/10.5281/zenodo.17693004.
 
