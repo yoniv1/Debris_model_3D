@@ -43,7 +43,7 @@ Debris input locations are X,Y positions of the pixels within the domain and sho
 
 ### Example input parameter values
 
-The following parameter values were inserted to obtain the debris-covered reference glacier in Verhaegen & Huybrechts (2025):
+The following parameter values were inserted to obtain the debris-covered reference glacier in Verhaegen & Huybrechts (2026):
 
       INTEGER, PARAMETER   :: NY=178                               ! Number of pixels in y (-)
       INTEGER, PARAMETER   :: NX=300                               ! Number of pixels in x (-)
